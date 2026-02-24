@@ -208,7 +208,6 @@ if "session_id" not in st.session_state:
     st.info("👈 Start a New Chat from the sidebar.")
     st.stop()
 
-# تحميل الـ history وعرضه مع الجداول لو موجودة
 history = pd.read_sql(
     """
     SELECT * FROM messages
@@ -279,7 +278,6 @@ if prompt := st.chat_input("Ask your data..."):
                 """
                 response = agent.llm.invoke(summary_prompt).content
 
-                # احفظ الرسالة مع الجدول
                 agent.save_message(st.session_state.session_id, "assistant", response, df=df)
 
                 with st.chat_message("assistant"):
@@ -292,7 +290,3 @@ if prompt := st.chat_input("Ask your data..."):
                 agent.save_message(st.session_state.session_id, "assistant", response)
                 with st.chat_message("assistant"):
                     st.markdown(response)
-###  streamlit run "c:/Users/hussein aly/Downloads/Chinhook/Chinhook/APP.py"   ###
-
-
-### streamlit run .\Chinhook\APP.py
