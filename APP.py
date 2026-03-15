@@ -238,7 +238,6 @@ if prompt := st.chat_input("Ask your data..."):
 
     with st.spinner("Thinking..."):
 
-        # جيب الـ examples من RAG
         examples = ""
         if agent.vector_db:
             similar_docs = agent.vector_db.similarity_search(prompt, k=3)
@@ -247,7 +246,6 @@ if prompt := st.chat_input("Ask your data..."):
                 for d in similar_docs
             ])
 
-        # Call واحدة بس 🎉
         result = agent.process_query(prompt, examples)
 
         if result.intent == "SECURITY_VIOLATION":
@@ -267,7 +265,6 @@ if prompt := st.chat_input("Ask your data..."):
                 with agent.engine.connect() as conn:
                     df = pd.read_sql(text(result.sql_query), con=conn)
 
-                # Call تانية للـ Summary بس (مختصر ✅)
                 summary_prompt = f"""
                 Answer the question: '{prompt}'
                 based on this data:
